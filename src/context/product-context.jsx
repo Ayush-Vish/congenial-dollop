@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 
+import PropTypes from 'prop-types';
 const ProductContext = React.createContext();
 
-import PropTypes from 'prop-types';
  
 
 ProductContextProvider.propTypes = {
@@ -13,7 +13,7 @@ ProductContextProvider.propTypes = {
 
 export default function ProductContextProvider(props) {
       return (
-            <ProductContext.Provider     value={{}}  >
+            <ProductContext.Provider  value={{}}  >
                   {props.children  }
             </ProductContext.Provider>
       );
