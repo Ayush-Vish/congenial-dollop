@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import TextField from '@mui/material/TextField';
+import {} from 'prop-types';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -16,14 +17,42 @@ const style = {
   p: 4,
 };
 
-export default function ModalForm(    ) {
+
+ModalForm.pr
+
+export default function ModalForm( {productToEdit , children}  ) {
   const [open, setOpen] = React.useState(false);
+  const [product, setProduct] = React.useState({
+    title: '',
+    images: [],
+    price: '',
+    rating: '',
+    category: '',
+  });
+  console.log(product);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleChange = (event) => {
+    setProduct({
+      ...product,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission here
+  };
+  React.useEffect(() => {
+    if(productToEdit) {
+      setProduct(productToEdit);
+    }
+  }, [ ])
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <div onClick={handleOpen}>{children}</div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,11 +61,51 @@ export default function ModalForm(    ) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            {productToEdit ?  "Edit" : "Add "} Product
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              name="title"
+              label="Title"
+              value={product.title}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              name="images"
+              label="Images (comma-separated URLs)"
+              value={product.image}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              name="price"
+              label="Price"
+              value={product.price}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              name="rating"
+              label="Rating"
+              value={product.rating}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              name="category"
+              label="Category"
+              value={product.category}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <Button type="submit">Submit</Button>
+          </form>
         </Box>
       </Modal>
     </div>

@@ -45,7 +45,7 @@ export default function TableSortAndSelection() {
     });
     const data = await response.json();
     const rows = data.map((product) => createData(
-      product.title, product.price, product.rating, product.brand, product.category, product.images[0]
+      product.id,product.title, product.price, product.rating, product.brand, product.category, product.images[0]
     ));
     setProducts(rows);
   };
@@ -158,51 +158,46 @@ export default function TableSortAndSelection() {
 
               return (
                 <tr
-                  onClick={(event) => handleClick(event, row.title)}
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  
-                  key={row.name}
-                  selected={isItemSelected}
-                  style={
-                    isItemSelected
-                      ? {
-                        "padding": "10px",
-                          "--TableCell-dataBackground":
-                            "var(--TableCell-selectedBackground)",
-                          "--TableCell-headBackground":
-                            "var(--TableCell-selectedBackground)",
-                           
-                        }
-                      : {}
-                  }
-                >
-                  <th scope="row">
-                    <Checkbox
-                      checked={isItemSelected}
-                      slotProps={{
-                        input: {
-                          "aria-labelledby": labelId,
-                        },
-                      }}
-                      sx={{ verticalAlign: "top" }}
-                    />
-                  </th>
-                  <th id={labelId} scope="row">
-                    <div className="flex flex-row">
-                      <img src={row.images} alt="" />
-                      {row.title}   
-
-                    </div>
-                  </th>
-                  <td>{row.price}</td>
-                  <td>{row.rating}</td>
-                  <td>{row.category}</td>
-                  <td className="flex  "  >
-                        <Action/>
-                  </td>
-                </tr>
+                role="checkbox"
+                aria-checked={isItemSelected}
+                tabIndex={-1}
+                key={row.name}
+                selected={isItemSelected}
+                style={
+                  isItemSelected
+                    ? {
+                        padding: "10px",
+                        "--TableCell-dataBackground": "var(--TableCell-selectedBackground)",
+                        "--TableCell-headBackground": "var(--TableCell-selectedBackground)",
+                      }
+                    : {}
+                }
+              >
+                <th scope="row">
+                  <Checkbox
+                    checked={isItemSelected}
+                    onChange={(event) => handleClick(event, row.title)} // Handle checkbox change
+                    slotProps={{
+                      input: {
+                        "aria-labelledby": labelId,
+                      },
+                    }}
+                    sx={{ verticalAlign: "top" }}
+                  />
+                </th>
+                <th id={labelId} scope="row">
+                  <div className="flex flex-row">
+                    <img src={row.images} alt="" />
+                    {row.title}
+                  </div>
+                </th>
+                <td>{row.price}</td>
+                <td>{row.rating}</td>
+                <td>{row.category}</td>
+                <td className="flex">
+                  <Action product={row} />
+                </td>
+              </tr>
               );
             })}
           {emptyRows > 0 && (

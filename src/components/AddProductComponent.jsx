@@ -1,11 +1,13 @@
-import React from 'react';
 import { Button } from '@mui/material';
+import ModalForm from './ModalForm';
 
 function AddProductComponent() {
   return (
     <div className="w-full p-2 flex justify-end">
       <Button  variant="contained" color="primary" >
-        Add Product
+        <ModalForm>
+          Add Product 
+        </ModalForm>
       </Button>
     </div>
   );

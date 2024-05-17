@@ -10,8 +10,9 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function createData(title, price, rating, brand, category, image) {
+function createData(id,title, price, rating, brand, category, image) {
   return {
+    id,
     title,
     price,
     rating,
