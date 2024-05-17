@@ -18,6 +18,8 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { visuallyHidden } from "@mui/utils";
+import { useProductContext } from "../context/product-context";
+import Action from "./Action";
 
 function createData(title, price, rating, brand, category, image) {
   return {
@@ -248,23 +250,30 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function TableSortAndSelection() {
+  const { products, setProducts } = useProductContext();
 
   async function getProducts() {
-    const response = await fetch("localhost:3000/products");
-      const data = await response.json();
-      const rows = data.map((product) => {
-            return createData(
-            product.title,
-            product.price,
-            product.rating,
-            product.brand,
-            product.category,
-            product.image
-            );
-      });
-      // Save the data in the context 
-      
+    const response = await fetch("http://localhost:3000/products", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    const data = await response.json();
+    console.log(data);
+    const rows = data.map((product) => {
+      return createData(
+        product.title,
+        product.price,
+        product.rating,
+        product.brand,
+        product.category,
+        product.images[0]
+      );
+    });
+    console.log(rows);
+    // Save the data in the context
+    setProducts(rows);
   }
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -280,7 +289,7 @@ export default function TableSortAndSelection() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = products.map((n) => n.name);
       setSelected(newSelected);
       return;
     }
@@ -317,19 +326,22 @@ export default function TableSortAndSelection() {
   };
 
   const getLabelDisplayedRowsTo = () => {
-    if (rows.length === -1) {
+    if (products.length === -1) {
       return (page + 1) * rowsPerPage;
     }
     return rowsPerPage === -1
-      ? rows.length
-      : Math.min(rows.length, (page + 1) * rowsPerPage);
+      ? products.length
+      : Math.min(products.length, (page + 1) * rowsPerPage);
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  React.useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <Sheet
@@ -359,23 +371,23 @@ export default function TableSortAndSelection() {
           orderBy={orderBy}
           onSelectAllClick={handleSelectAllClick}
           onRequestSort={handleRequestSort}
-          rowCount={rows.length}
+          rowCount={products.length}
         />
         <tbody>
-          {stableSort(rows, getComparator(order, orderBy))
+          {stableSort(products, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {
-              const isItemSelected = isSelected(row.name);
+              const isItemSelected = isSelected(row.title);
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
                 <tr
-                  onClick={(event) => handleClick(event, row.name)}
+                  onClick={(event) => handleClick(event, row.title)}
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
                   key={row.name}
-                  // selected={isItemSelected}
+                  selected={isItemSelected}
                   style={
                     isItemSelected
                       ? {
@@ -399,12 +411,14 @@ export default function TableSortAndSelection() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    {row.name}
+                    {row.title}
                   </th>
-                  <td>{row.calories}</td>
-                  <td>{row.fat}</td>
-                  <td>{row.carbs}</td>
-                  <td>{row.protein}</td>
+                  <td>{row.price}</td>
+                  <td>{row.rating}</td>
+                  <td>{row.category}</td>
+                  <td className="flex gap-2 "  >
+                        <Action/>
+                  </td>
                 </tr>
               );
             })}
@@ -443,9 +457,9 @@ export default function TableSortAndSelection() {
                 </FormControl>
                 <Typography textAlign="center" sx={{ minWidth: 80 }}>
                   {labelDisplayedRows({
-                    from: rows.length === 0 ? 0 : page * rowsPerPage + 1,
+                    from: products.length === 0 ? 0 : page * rowsPerPage + 1,
                     to: getLabelDisplayedRowsTo(),
-                    count: rows.length === -1 ? -1 : rows.length,
+                    count: products.length === -1 ? -1 : products.length,
                   })}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
@@ -464,8 +478,8 @@ export default function TableSortAndSelection() {
                     color="neutral"
                     variant="outlined"
                     disabled={
-                      rows.length !== -1
-                        ? page >= Math.ceil(rows.length / rowsPerPage) - 1
+                      products.length !== -1
+                        ? page >= Math.ceil(products.length / rowsPerPage) - 1
                         : false
                     }
                     onClick={() => handleChangePage(page + 1)}

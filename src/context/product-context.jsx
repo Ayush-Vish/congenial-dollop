@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 
 import PropTypes from 'prop-types';
@@ -12,8 +12,9 @@ ProductContextProvider.propTypes = {
 
 
 export default function ProductContextProvider(props) {
+      const [products, setProducts] = useState([]);
       return (
-            <ProductContext.Provider  value={{}}  >
+            <ProductContext.Provider  value={{products , setProducts}}  >
                   {props.children  }
             </ProductContext.Provider>
       );
