@@ -24,10 +24,10 @@ const  headCells = [
         label: "Category",
       },
       {
-        id: "stock",
-        numeric: true,
+        id: "action",
+        numeric: false,
         disablePadding: false,
-        label: "stock",
+        label: "Action",
       },
     ];
 

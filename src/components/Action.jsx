@@ -66,6 +66,10 @@ export default function Action( {id}   ) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         variant="contained"
+        sx={{
+            padding : "5px",
+           
+        }}
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}

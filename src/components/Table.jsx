@@ -1,5 +1,5 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+
 import Box from "@mui/joy/Box";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
@@ -8,64 +8,19 @@ import Checkbox from "@mui/joy/Checkbox";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import IconButton from "@mui/joy/IconButton";
-import Link from "@mui/joy/Link";
+
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { visuallyHidden } from "@mui/utils";
+
 import { useProductContext } from "../context/product-context";
 import Action from "./Action";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
+import { createData, getComparator, labelDisplayedRows, stableSort } from "../utils/stableSort";
 
-function createData(title, price, rating, brand, category, image) {
-  return {
-    title,
-    price,
-    rating,
-    brand,
-    category,
-    image,
-  };
-}
 
-function labelDisplayedRows({ from, to, count }) {
-  return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
-}
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 
 
@@ -77,42 +32,32 @@ function stableSort(array, comparator) {
 
 export default function TableSortAndSelection() {
   const { products, setProducts } = useProductContext();
-
-  async function getProducts() {
-    const response = await fetch("http://localhost:3000/products", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-    console.log(data);
-    const rows = data.map((product) => {
-      return createData(
-        product.title,
-        product.price,
-        product.rating,
-        product.brand,
-        product.category,
-        product.images[0]
-      );
-    });
-    console.log(rows);
-    // Save the data in the context
-    setProducts(rows);
-  }
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  // Fetch products from API
+  const getProducts = async () => {
+    const response = await fetch("http://localhost:3000/products", {
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    const rows = data.map((product) => createData(
+      product.title, product.price, product.rating, product.brand, product.category, product.images[0]
+    ));
+    setProducts(rows);
+  };
+
+  // Handle sorting of table columns
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
+  // Handle selection of all rows
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelected = products.map((n) => n.name);
@@ -122,6 +67,7 @@ export default function TableSortAndSelection() {
     setSelected([]);
   };
 
+  // Handle click on a row
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -142,14 +88,22 @@ export default function TableSortAndSelection() {
     setSelected(newSelected);
   };
 
+  // Handle change of page
   const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
+  // Handle change of rows per page
   const handleChangeRowsPerPage = (event, newValue) => {
     setRowsPerPage(parseInt(newValue.toString(), 10));
     setPage(0);
   };
+
+  // Check if a row is selected
+  const isSelected = (name) => selected.indexOf(name) !== -1;
+
+  // Calculate the number of empty rows
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
   const getLabelDisplayedRowsTo = () => {
     if (products.length === -1) {
@@ -160,11 +114,7 @@ export default function TableSortAndSelection() {
       : Math.min(products.length, (page + 1) * rowsPerPage);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  // Fetch products on component mount
   React.useEffect(() => {
     getProducts();
   }, []);
@@ -212,15 +162,18 @@ export default function TableSortAndSelection() {
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
+                  
                   key={row.name}
                   selected={isItemSelected}
                   style={
                     isItemSelected
                       ? {
+                        "padding": "10px",
                           "--TableCell-dataBackground":
                             "var(--TableCell-selectedBackground)",
                           "--TableCell-headBackground":
                             "var(--TableCell-selectedBackground)",
+                           
                         }
                       : {}
                   }
@@ -237,12 +190,16 @@ export default function TableSortAndSelection() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    {row.title}
+                    <div className="flex flex-row">
+                      <img src={row.images} alt="" />
+                      {row.title}   
+
+                    </div>
                   </th>
                   <td>{row.price}</td>
                   <td>{row.rating}</td>
                   <td>{row.category}</td>
-                  <td className="flex gap-2 "  >
+                  <td className="flex  "  >
                         <Action/>
                   </td>
                 </tr>
