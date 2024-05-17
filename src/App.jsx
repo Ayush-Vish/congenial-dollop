@@ -3,7 +3,7 @@ import DashBoard from "./pages/DashBoard"
 function App() {
 
   return (
-    <main>
+    <main className="w-full h-screen flex bg-yellow-50 items-center justify-center">
         <DashBoard/>
     </main>
   )

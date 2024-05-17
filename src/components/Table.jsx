@@ -9,17 +9,16 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import IconButton from "@mui/joy/IconButton";
 import Link from "@mui/joy/Link";
-import Tooltip from "@mui/joy/Tooltip";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { visuallyHidden } from "@mui/utils";
 import { useProductContext } from "../context/product-context";
 import Action from "./Action";
+import EnhancedTableToolbar from "./EnhancedTableToolbar";
+import EnhancedTableHead from "./EnhancedTableHead";
 
 function createData(title, price, rating, brand, category, image) {
   return {
@@ -68,186 +67,13 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
-  {
-    id: "Title",
-    numeric: false,
-    disablePadding: true,
-    label: "Title",
-  },
-  {
-    id: "price",
-    numeric: true,
-    disablePadding: false,
-    label: "Price",
-  },
-  {
-    id: "rating",
-    numeric: true,
-    disablePadding: false,
-    label: "Rating",
-  },
-  {
-    id: "Category",
-    numeric: true,
-    disablePadding: false,
-    label: "Category",
-  },
-  {
-    id: "stock",
-    numeric: true,
-    disablePadding: false,
-    label: "stock",
-  },
-];
 
-function EnhancedTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
 
-  return (
-    <thead>
-      <tr>
-        <th>
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            slotProps={{
-              input: {
-                "aria-label": "select all desserts",
-              },
-            }}
-            sx={{ verticalAlign: "sub" }}
-          />
-        </th>
-        {headCells.map((headCell) => {
-          const active = orderBy === headCell.id;
-          return (
-            <th
-              key={headCell.id}
-              aria-sort={
-                active
-                  ? { asc: "ascending", desc: "descending" }[order]
-                  : undefined
-              }
-            >
-              <Link
-                underline="none"
-                color="neutral"
-                textColor={active ? "primary.plainColor" : undefined}
-                component="button"
-                onClick={createSortHandler(headCell.id)}
-                fontWeight="lg"
-                startDecorator={
-                  headCell.numeric ? (
-                    <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
-                  ) : null
-                }
-                endDecorator={
-                  !headCell.numeric ? (
-                    <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
-                  ) : null
-                }
-                sx={{
-                  "& svg": {
-                    transition: "0.2s",
-                    transform:
-                      active && order === "desc"
-                        ? "rotate(0deg)"
-                        : "rotate(180deg)",
-                  },
-                  "&:hover": { "& svg": { opacity: 1 } },
-                }}
-              >
-                {headCell.label}
-                {active ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
-                  </Box>
-                ) : null}
-              </Link>
-            </th>
-          );
-        })}
-      </tr>
-    </thead>
-  );
-}
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        py: 1,
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: "background.level1",
-        }),
-        borderTopLeftRadius: "var(--unstable_actionRadius)",
-        borderTopRightRadius: "var(--unstable_actionRadius)",
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography sx={{ flex: "1 1 100%" }} component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          level="body-lg"
-          sx={{ flex: "1 1 100%" }}
-          id="tableTitle"
-          component="div"
-        >
-          Products
-        </Typography>
-      )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton size="sm" color="danger" variant="solid">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton size="sm" variant="outlined" color="neutral">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Box>
-  );
-}
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
 
 export default function TableSortAndSelection() {
   const { products, setProducts } = useProductContext();
