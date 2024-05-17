@@ -14,41 +14,23 @@ import Option from "@mui/joy/Option";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-import { useProductContext } from "../context/product-context";
 import Action from "./Action";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
-import { createData, getComparator, labelDisplayedRows, stableSort } from "../utils/stableSort";
-
-
-
-
-
-
-
-
-
-
+import {
+  getComparator,
+  labelDisplayedRows,
+  stableSort,
+} from "../utils/stableSort";
+import { useProductContext } from "../hooks/useProductContext";
 
 export default function TableSortAndSelection() {
-  const { products, setProducts } = useProductContext();
+  const { products, fetchProducts } = useProductContext();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  // Fetch products from API
-  const getProducts = async () => {
-    const response = await fetch("http://localhost:3000/products", {
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    const rows = data.map((product) => createData(
-      product.id,product.title, product.price, product.rating, product.brand, product.category, product.images[0]
-    ));
-    setProducts(rows);
-  };
 
   // Handle sorting of table columns
   const handleRequestSort = (event, property) => {
@@ -103,7 +85,8 @@ export default function TableSortAndSelection() {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Calculate the number of empty rows
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
   const getLabelDisplayedRowsTo = () => {
     if (products.length === -1) {
@@ -116,7 +99,7 @@ export default function TableSortAndSelection() {
 
   // Fetch products on component mount
   React.useEffect(() => {
-    getProducts();
+    fetchProducts();
   }, []);
 
   return (
@@ -158,46 +141,48 @@ export default function TableSortAndSelection() {
 
               return (
                 <tr
-                role="checkbox"
-                aria-checked={isItemSelected}
-                tabIndex={-1}
-                key={row.name}
-                selected={isItemSelected}
-                style={
-                  isItemSelected
-                    ? {
-                        padding: "10px",
-                        "--TableCell-dataBackground": "var(--TableCell-selectedBackground)",
-                        "--TableCell-headBackground": "var(--TableCell-selectedBackground)",
-                      }
-                    : {}
-                }
-              >
-                <th scope="row">
-                  <Checkbox
-                    checked={isItemSelected}
-                    onChange={(event) => handleClick(event, row.title)} // Handle checkbox change
-                    slotProps={{
-                      input: {
-                        "aria-labelledby": labelId,
-                      },
-                    }}
-                    sx={{ verticalAlign: "top" }}
-                  />
-                </th>
-                <th id={labelId} scope="row">
-                  <div className="flex flex-row">
-                    <img src={row.images} alt="" />
-                    {row.title}
-                  </div>
-                </th>
-                <td>{row.price}</td>
-                <td>{row.rating}</td>
-                <td>{row.category}</td>
-                <td className="flex">
-                  <Action product={row} />
-                </td>
-              </tr>
+                  role="checkbox"
+                  aria-checked={isItemSelected}
+                  tabIndex={-1}
+                  key={row.name}
+                  selected={isItemSelected}
+                  style={
+                    isItemSelected
+                      ? {
+                          padding: "10px",
+                          "--TableCell-dataBackground":
+                            "var(--TableCell-selectedBackground)",
+                          "--TableCell-headBackground":
+                            "var(--TableCell-selectedBackground)",
+                        }
+                      : {}
+                  }
+                >
+                  <th scope="row">
+                    <Checkbox
+                      checked={isItemSelected}
+                      onChange={(event) => handleClick(event, row.title)} // Handle checkbox change
+                      slotProps={{
+                        input: {
+                          "aria-labelledby": labelId,
+                        },
+                      }}
+                      sx={{ verticalAlign: "top" }}
+                    />
+                  </th>
+                  <th id={labelId} scope="row">
+                    <div className="flex flex-row gap-2 items-start">
+                      <img src={row.images[0]} alt="" height={50} width={40} />
+                      {row.title}
+                    </div>
+                  </th>
+                  <td>{row.price}</td>
+                  <td>{row.rating}</td>
+                  <td>{row.category}</td>
+                  <td className="flex">
+                    <Action product={row} />
+                  </td>
+                </tr>
               );
             })}
           {emptyRows > 0 && (

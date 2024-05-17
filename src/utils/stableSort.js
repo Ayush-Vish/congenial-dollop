@@ -10,15 +10,33 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function createData(id,title, price, rating, brand, category, image) {
+function createData(
+  id,
+  title,
+  description,
+  price,
+  discountPercentage,
+  rating,
+  stock,
+  brand,
+  category,
+  thumbnail,
+  images
+) {
   return {
     id,
     title,
+    description,
     price,
+
+    discountPercentage,
+
     rating,
+    stock,
     brand,
     category,
-    image,
+    thumbnail,
+    images,
   };
 }
 
@@ -42,9 +60,9 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 export {
-        stableSort,
+  stableSort,
   createData,
   labelDisplayedRows,
   descendingComparator,
   getComparator,
-}
+};

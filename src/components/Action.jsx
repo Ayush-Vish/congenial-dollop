@@ -10,11 +10,9 @@ export default function Action({ product }) {
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div className='flex '  >
       <ModalForm     open={open} handleClose={handleClose} productToEdit={product} >
