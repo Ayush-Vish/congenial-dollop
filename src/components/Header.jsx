@@ -8,19 +8,16 @@ import { Button } from '@mui/joy';
 
 function Header() {
     return (
-        <AppBar position="fixed">
-            <Toolbar>
-                <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" />
-                <Typography variant="h6" style={{flexGrow: 1}}>
-                    DashBoard
-                </Typography>
-                <Button color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </Button>
-            </Toolbar>
-        </AppBar>
+        <div className='flex w-full bg-white rounded-lg shadow-lg p-4 justify-between items-center'>
+            <Typography variant="h6" style={{flexGrow: 1, marginLeft: '1rem'}}>
+                DashBoard
+            </Typography>
+            <Button color="inherit" style={{marginRight: '1rem'}}>
+                <Badge badgeContent={4} color="secondary">
+                    <NotificationsIcon />
+                </Badge>
+            </Button>
+        </div>
     );
 }
 

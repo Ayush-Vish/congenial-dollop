@@ -10,7 +10,7 @@ function AddProductComponent() {
     return ;
   }
   return (
-    <div className="w-full p-2 flex justify-end">
+    <div className=" flex justify-end w-3/4 bg-white rounded-lg shadow-lg p-4 mt-[10%]">
       <Button  onClick={handleOnClick} variant="contained" color="primary" >
        
           Add Product 

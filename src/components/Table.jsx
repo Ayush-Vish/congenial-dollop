@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import Box from "@mui/joy/Box";
 import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
@@ -12,15 +11,12 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Action from "./Action";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
-import {
-  getComparator,
-  labelDisplayedRows,
-  stableSort,
-} from "../utils/stableSort";
+import { getComparator, labelDisplayedRows, stableSort } from "../utils/stableSort";
 import { useProductContext } from "../hooks/useProductContext";
 
 export default function TableSortAndSelection() {
@@ -30,6 +26,7 @@ export default function TableSortAndSelection() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   // Handle sorting of table columns
   const handleRequestSort = (event, property) => {
@@ -118,9 +115,16 @@ export default function TableSortAndSelection() {
             width: "40px",
           },
           "& thead th:nth-child(2)": {
-            width: "30%",
+            width: isSmallScreen ? "20%" : "30%",
           },
-          "& tr > *:nth-child(n+3)": { textAlign: "right" },
+          "& tr > *:nth-child(n+3)": { textAlign: isSmallScreen ? "left" : "right" },
+          "& td, & th": {
+            padding: isSmallScreen ? "8px" : "16px",
+          },
+          "& img": {
+            width: isSmallScreen ? "40px" : "48px",
+            height: isSmallScreen ? "40px" : "48px",
+          },
         }}
       >
         <EnhancedTableHead
@@ -143,7 +147,7 @@ export default function TableSortAndSelection() {
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
-                  key={row.name}
+                  key={row.title}
                   selected={isItemSelected}
                   style={
                     isItemSelected
@@ -170,9 +174,9 @@ export default function TableSortAndSelection() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    <div className="flex flex-row gap-2 items-start ">
-                      <img src={row.images[0]} alt="" className="h-12 w-12" />
-                      {row.title}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <img src={row.images[0]} alt="" />
+                      <span>{row.title}</span>
                     </div>
                   </th>
                   <td>{row.price}</td>
@@ -193,7 +197,7 @@ export default function TableSortAndSelection() {
                 "--TableRow-hoverBackground": "transparent",
               }}
             >
-              <td colSpan={6} aria-hidden />
+              <td colSpan={8} aria-hidden />
             </tr>
           )}
         </tbody>

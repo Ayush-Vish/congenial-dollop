@@ -10,7 +10,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useLocation } from "react-router";
 import ProductForm from "../components/ProductForm";
 import ProductImage from "../components/ui/ProductImage";
-
+import {motion} from "framer-motion"
 export default function ProductPage({ children }) {
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const { addProduct, updateProduct, products } = useProductContext();
@@ -61,12 +61,20 @@ export default function ProductPage({ children }) {
   }, [product.thumbnail]);
 
   return (
+    <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.5, ease: "easeOut" }}
+>
     <Box
-      sx={{
-        padding: 3,
-        backgroundColor: "#f5f5f5",
-        borderRadius: "10px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    
+    sx={{
+      padding: 3,
+      backgroundColor: "#f5f5f5",
+      borderRadius: "10px",
+      boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  
       }}
     >
       <Button
@@ -113,6 +121,7 @@ export default function ProductPage({ children }) {
         </form>
       </Box>
     </Box>
+    </motion.div>
   );
 }
 
