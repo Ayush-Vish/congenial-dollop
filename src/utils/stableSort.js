@@ -28,9 +28,7 @@ function createData(
     title,
     description,
     price,
-
     discountPercentage,
-
     rating,
     stock,
     brand,

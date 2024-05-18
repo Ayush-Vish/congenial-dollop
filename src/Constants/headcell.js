@@ -3,7 +3,7 @@ const  headCells = [
         id: "Title",
         numeric: false,
         disablePadding: true,
-        label: "Title",
+        label: "title",
       },
       {
         id: "price",
@@ -18,6 +18,19 @@ const  headCells = [
         label: "Rating",
       },
       {
+        id: "stocks",
+        numeric: true,
+        disablePadding: false,
+        label: "Stocks",
+      },
+      {
+        id:"discount_percentage" ,
+        numeric: true,
+        disablePadding: false,
+        label: "Discount (%)",
+      },
+      {
+
         id: "Category",
         numeric: true,
         disablePadding: false,

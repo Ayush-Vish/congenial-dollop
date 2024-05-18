@@ -8,7 +8,6 @@ import Checkbox from "@mui/joy/Checkbox";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import IconButton from "@mui/joy/IconButton";
-
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -26,11 +25,11 @@ import { useProductContext } from "../hooks/useProductContext";
 
 export default function TableSortAndSelection() {
   const { products, fetchProducts } = useProductContext();
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [order, setOrder] = React.useState("desc");
+  const [orderBy, setOrderBy] = React.useState("price");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   // Handle sorting of table columns
   const handleRequestSort = (event, property) => {
@@ -171,13 +170,15 @@ export default function TableSortAndSelection() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    <div className="flex flex-row gap-2 items-start">
-                      <img src={row.images[0]} alt="" height={50} width={40} />
+                    <div className="flex flex-row gap-2 items-start ">
+                      <img src={row.images[0]} alt="" className="h-12 w-12" />
                       {row.title}
                     </div>
                   </th>
                   <td>{row.price}</td>
                   <td>{row.rating}</td>
+                  <td>{row.stock}</td>
+                  <td>{row.discountPercentage}</td>
                   <td>{row.category}</td>
                   <td className="flex">
                     <Action product={row} />
@@ -198,7 +199,7 @@ export default function TableSortAndSelection() {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={6}>
+            <td colSpan={8}>
               <Box
                 sx={{
                   display: "flex",

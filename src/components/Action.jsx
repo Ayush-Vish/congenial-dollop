@@ -1,28 +1,30 @@
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ModalForm from './ModalForm';
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModalForm from "../pages/ProductPage";
+import { useNavigate } from "react-router";
 
 export default function Action({ product }) {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleEdit = () => {
+    navigate("product" , {state : product});
+
   };
   const handleClose = () => {
     setOpen(false);
   };
   return (
-    <div className='flex '  >
-      <ModalForm     open={open} handleClose={handleClose} productToEdit={product} >
-        <IconButton onClick={handleOpen}>
+    <div className="flex ">
+      
+        <IconButton onClick={handleEdit}>
           <EditIcon />
         </IconButton>
 
-      </ModalForm>
       <IconButton>
-        <DeleteIcon color='error' />
+        <DeleteIcon color="error" />
       </IconButton>
     </div>
   );
