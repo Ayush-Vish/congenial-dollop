@@ -4,7 +4,7 @@ import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
-    <main className="w-full h-screen flex bg-yellow-50 items-start justify-center">
+    <main className="w-full h-screen flex items-start justify-center">
 
         <Routes>
           <Route path="/" element={<DashBoard />} />
