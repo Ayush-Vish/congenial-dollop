@@ -53,25 +53,6 @@
       ]
     },
     {
-      "id": "4",
-      "title": "OPPOF19",
-      "description": "OPPO F19 is officially announced on April 2021.",
-      "price": 280,
-      "discountPercentage": 17.91,
-      "rating": 4.3,
-      "stock": 123,
-      "brand": "OPPO",
-      "category": "smartpho",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/4/1.jpg",
-        "https://cdn.dummyjson.com/product-images/4/2.jpg",
-        "https://cdn.dummyjson.com/product-images/4/3.jpg",
-        "https://cdn.dummyjson.com/product-images/4/4.jpg",
-        "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg"
-      ]
-    },
-    {
       "id": "5",
       "title": "Huawei P30",
       "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
@@ -86,24 +67,6 @@
         "https://cdn.dummyjson.com/product-images/5/1.jpg",
         "https://cdn.dummyjson.com/product-images/5/2.jpg",
         "https://cdn.dummyjson.com/product-images/5/3.jpg"
-      ]
-    },
-    {
-      "id": "6",
-      "title": "MacBook Pro",
-      "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
-      "price": "174955",
-      "discountPercentage": 11.02,
-      "rating": 4.57,
-      "stock": 83,
-      "brand": "Apple",
-      "category": "laptops",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.png",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/6/1.png",
-        "https://cdn.dummyjson.com/product-images/6/2.jpg",
-        "https://cdn.dummyjson.com/product-images/6/3.png",
-        "https://cdn.dummyjson.com/product-images/6/4.jpg"
       ]
     },
     {
@@ -181,43 +144,6 @@
       ]
     },
     {
-      "id": "11",
-      "title": "perfume Oil",
-      "description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
-      "price": 13,
-      "discountPercentage": 8.4,
-      "rating": 4.26,
-      "stock": 65,
-      "brand": "Impression of Acqua Di Gio",
-      "category": "fragrances",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/11/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/11/1.jpg",
-        "https://cdn.dummyjson.com/product-images/11/2.jpg",
-        "https://cdn.dummyjson.com/product-images/11/3.jpg",
-        "https://cdn.dummyjson.com/product-images/11/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": "12",
-      "title": "Brown Perfume",
-      "description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
-      "price": 40,
-      "discountPercentage": 15.66,
-      "rating": 4,
-      "stock": 52,
-      "brand": "Royal_Mirage",
-      "category": "fragrances",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/12/1.jpg",
-        "https://cdn.dummyjson.com/product-images/12/2.jpg",
-        "https://cdn.dummyjson.com/product-images/12/3.png",
-        "https://cdn.dummyjson.com/product-images/12/4.jpg",
-        "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg"
-      ]
-    },
-    {
       "id": "13",
       "title": "Fog Scent Xpressio Perfume",
       "description": "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
@@ -271,43 +197,6 @@
         "https://cdn.dummyjson.com/product-images/15/3.jpg",
         "https://cdn.dummyjson.com/product-images/15/4.jpg",
         "https://cdn.dummyjson.com/product-images/15/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": "16",
-      "title": "Hyaluronic Acid Serum",
-      "description": "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
-      "price": 19,
-      "discountPercentage": 13.31,
-      "rating": 4.83,
-      "stock": 110,
-      "brand": "L'Oreal Paris",
-      "category": "skincare",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/16/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/16/1.png",
-        "https://cdn.dummyjson.com/product-images/16/2.webp",
-        "https://cdn.dummyjson.com/product-images/16/3.jpg",
-        "https://cdn.dummyjson.com/product-images/16/4.jpg",
-        "https://cdn.dummyjson.com/product-images/16/thumbnail.jpg"
-      ]
-    },
-    {
-      "id": "17",
-      "title": "Tree Oil 30ml",
-      "description": "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
-      "price": 12,
-      "discountPercentage": 4.09,
-      "rating": 4.52,
-      "stock": 78,
-      "brand": "Hemani Tea",
-      "category": "skincare",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/17/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/17/1.jpg",
-        "https://cdn.dummyjson.com/product-images/17/2.jpg",
-        "https://cdn.dummyjson.com/product-images/17/3.jpg",
-        "https://cdn.dummyjson.com/product-images/17/thumbnail.jpg"
       ]
     },
     {
