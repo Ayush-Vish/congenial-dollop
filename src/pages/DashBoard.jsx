@@ -13,7 +13,7 @@ function DashBoard() {
 
       className='  sm:w-[95%] w-full absolute     h-screen bg-gradient-to-r from-white to-blue-100 flex-col items-center justify-center space-y-8'
     >
-      <Header />
+      <Header  />
       <AddProductComponent className=''/>
       <TableSortAndSelection className='w-3/4 bg-white rounded-lg shadow-lg p-4'/>
     </motion.div>

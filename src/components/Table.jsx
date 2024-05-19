@@ -160,6 +160,8 @@ export default function TableSortAndSelection() {
                         }
                       : {}
                   }
+
+                  
                 >
                   <th scope="row">
                     <Checkbox

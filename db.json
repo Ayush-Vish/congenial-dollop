@@ -70,30 +70,12 @@
       ]
     },
     {
-      "id": "7",
-      "title": "Samsung Galaxy Book",
-      "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
-      "price": 1499,
-      "discountPercentage": "4.155",
-      "rating": 4.25,
-      "stock": 50,
-      "brand": "Samsung",
-      "category": "laptops",
-      "thumbnail": "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg",
-      "images": [
-        "https://cdn.dummyjson.com/product-images/7/1.jpg",
-        "https://cdn.dummyjson.com/product-images/7/2.jpg",
-        "https://cdn.dummyjson.com/product-images/7/3.jpg",
-        "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg"
-      ]
-    },
-    {
       "id": "8",
       "title": "Microsoft Surface Laptop 4",
       "description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
       "price": 1499,
       "discountPercentage": 10.23,
-      "rating": 4.43,
+      "rating": "4.436",
       "stock": 68,
       "brand": "Microsoft Surface",
       "category": "laptops",
@@ -442,33 +424,7 @@
       ]
     },
     {
-      "id": "",
-      "title": "Hello ",
-      "image": "",
-      "description": "",
-      "price": "",
-      "rating": "",
-      "category": "",
-      "discountPercentage": "",
-      "stock": "",
-      "thumbnail": "",
-      "images": []
-    },
-    {
-      "id": "",
-      "title": "Hello ",
-      "image": "d",
-      "description": "",
-      "price": "42",
-      "rating": "424",
-      "category": "smartphoness",
-      "discountPercentage": "",
-      "stock": "",
-      "thumbnail": "",
-      "images": []
-    },
-    {
-      "id": "",
+      "id": "24",
       "title": "",
       "image": "",
       "description": "",
@@ -481,7 +437,7 @@
       "images": []
     },
     {
-      "id": "",
+      "id": "25",
       "title": "",
       "image": "",
       "description": "",
@@ -494,68 +450,16 @@
       "images": []
     },
     {
-      "id": "",
-      "title": "Ayush",
+      "id": "26",
+      "title": "",
       "image": "",
-      "description": "dasdsadas",
-      "price": "sadsa",
-      "rating": "dasdasdsadsad",
-      "category": "sadasd",
-      "discountPercentage": "asd",
-      "stock": "asdasd",
-      "thumbnail": "asd",
-      "images": []
-    },
-    {
-      "id": "",
-      "title": "Ayush",
-      "image": "",
-      "description": "dasdsadas",
-      "price": "sadsa",
-      "rating": "dasdasdsadsad",
-      "category": "sadasd",
-      "discountPercentage": "asd",
-      "stock": "asdasd",
-      "thumbnail": "asd",
-      "images": []
-    },
-    {
-      "id": "",
-      "title": "Ayush",
-      "image": "",
-      "description": "dasdsadas",
-      "price": "sadsa",
-      "rating": "dasdasdsadsad",
-      "category": "sadasd",
-      "discountPercentage": "asd",
-      "stock": "asdasd",
-      "thumbnail": "asd",
-      "images": []
-    },
-    {
-      "id": 4,
-      "title": "fdasdasd",
-      "image": "",
-      "description": "adsdsa",
-      "price": "sad",
-      "rating": "dasdasdasdsad",
-      "category": "sadsa",
-      "discountPercentage": "dsad",
-      "stock": "dasd",
-      "thumbnail": "asdsa",
-      "images": []
-    },
-    {
-      "id": 5,
-      "title": "fdasdasd",
-      "image": "",
-      "description": "adsdsa",
-      "price": "sad",
-      "rating": "dasdasdasdsad",
-      "category": "sadsa",
-      "discountPercentage": "dsad",
-      "stock": "dasd",
-      "thumbnail": "asdsa",
+      "description": "",
+      "price": "",
+      "rating": "",
+      "category": "",
+      "discountPercentage": "",
+      "stock": "d",
+      "thumbnail": "",
       "images": []
     }
   ],

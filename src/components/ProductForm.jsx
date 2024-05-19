@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 
 export default function ProductForm({ product, handleChange, handleSubmit }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <Grid container spacing={2}>
        
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             name="title"
             label="Title"
             value={product.title}
@@ -17,6 +18,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             margin="normal"
           />
           <TextField
+            required
             name="category"
             label="Category"
             value={product.category}
@@ -27,6 +29,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             name="description"
             label="Description"
             value={product.description}
@@ -35,6 +38,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             margin="normal"
           />
           <TextField
+            required
             name="discountPercentage"
             label="Discount Percentage"
             value={product.discountPercentage}
@@ -45,6 +49,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             name="stock"
             label="Stock"
             value={product.stock}
@@ -53,6 +58,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             margin="normal"
           />
           <TextField
+            required
             name="thumbnail"
             label="Thumbnail"
             value={product.thumbnail}
@@ -63,6 +69,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             name="price"
             label="Price"
             value={product.price}
@@ -71,6 +78,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             margin="normal"
           />
           <TextField
+            required
             name="rating"
             label="Rating"
             value={product.rating}
@@ -80,7 +88,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
           />
         </Grid>
       </Grid>
-    </form>
+    </div>
   );
 }
 

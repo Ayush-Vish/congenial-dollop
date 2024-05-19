@@ -8,7 +8,7 @@ import { Button } from '@mui/joy';
 
 function Header() {
     return (
-        <div className='flex w-full bg-white rounded-lg shadow-lg p-4 justify-between items-center'>
+        <div  id='header' className='flex w-full bg-white rounded-lg shadow-lg p-4 justify-between items-center'>
             <Typography variant="h6" style={{flexGrow: 1, marginLeft: '1rem'}}>
                 DashBoard
             </Typography>

@@ -42,11 +42,7 @@ export default function EnhancedTableToolbar(props) {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Filter list">
-              <IconButton size="sm" variant="outlined" color="neutral">
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
+            <></>
           )}
         </Box>
       );

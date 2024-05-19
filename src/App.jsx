@@ -4,7 +4,6 @@ import ProductPage from "./pages/ProductPage";
 import { AnimatePresence } from "framer-motion";
 
 function App() {
-  const location = useLocation();
   return (
     <main className="w-full h-screen flex items-start justify-center">
 
