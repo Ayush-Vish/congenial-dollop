@@ -1,3 +1,5 @@
+
+import React from 'react';
 import { motion } from 'framer-motion';
 import AddProductComponent from '../components/AddProductComponent';
 import Header from '../components/Header';
@@ -13,9 +15,9 @@ function DashBoard() {
 
       className='  sm:w-[95%] w-full absolute     h-screen bg-gradient-to-r from-white to-blue-100 flex-col items-center justify-center space-y-8'
     >
-      <Header  />
-      <AddProductComponent className=''/>
-      <TableSortAndSelection className='w-3/4 bg-white rounded-lg shadow-lg p-4'/>
+      <Header role="header"  />
+      <AddProductComponent data-testid='add-product-component'/>
+      <TableSortAndSelection data-testid='table' />
     </motion.div>
   );
 }

@@ -20,7 +20,7 @@ import { getComparator, labelDisplayedRows, stableSort } from "../utils/stableSo
 import { useProductContext } from "../hooks/useProductContext";
 
 export default function TableSortAndSelection() {
-  const { products, fetchProducts } = useProductContext();
+  const { products, fetchProducts, productsChanged ,setProductsChanged} = useProductContext();
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("price");
   const [selected, setSelected] = React.useState([]);
@@ -92,18 +92,23 @@ const handleClick = (event, name) => {
       : Math.min(products.length, (page + 1) * rowsPerPage);
   };
 
-  // Fetch products on component mount
   React.useEffect(() => {
     fetchProducts();
   }, []);
+  React.useEffect(() =>  {
+    fetchProducts() ;
+    setProductsChanged(false);
+  }, [productsChanged])
 
   return (
     <Sheet
+      
       variant="outlined"
       sx={{ width: "100%", boxShadow: "sm", borderRadius: "sm" }}
     >
-      <EnhancedTableToolbar numSelected={selected.length} selected={selected}/>
+      <EnhancedTableToolbar numSelected={selected.length} selected={selected} setSelected={setSelected}/>
       <Table
+      
         aria-labelledby="tableTitle"
         hoverRow
         sx={{
@@ -134,7 +139,7 @@ const handleClick = (event, name) => {
           onRequestSort={handleRequestSort}
           rowCount={products.length}
         />
-        <tbody>
+        <tbody id="table">
           {stableSort(products, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {

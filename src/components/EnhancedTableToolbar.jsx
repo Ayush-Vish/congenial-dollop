@@ -5,9 +5,10 @@ import PropTypes from "prop-types";
 import { useProductContext } from "../hooks/useProductContext";
 export default function EnhancedTableToolbar(props) {
       const {deleteMany} = useProductContext();
-      const { numSelected , selected } = props;
+      const { numSelected , selected  ,setSelected} = props;
       function handleDelete() {
         deleteMany(selected);
+        setSelected([]);
       }
       return (
         <Box

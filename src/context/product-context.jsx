@@ -8,13 +8,13 @@ export const ProductContext = React.createContext(null);
 ProductContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-const URL = "http://localhost:3000/products";
+const isDev= import.meta.env.DEV;
+const URL = isDev ? "http://localhost:3000/products" : "https://json-data-red.vercel.app/products";
 
 export default function ProductContextProvider(props) {
   const [products, setProducts] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
-
+  const [productsChanged, setProductsChanged] = useState(false);
   const fetchProducts = async () => {
     try {
       const response = await fetch(URL, {
@@ -77,6 +77,7 @@ export default function ProductContextProvider(props) {
       });
       if (response.ok) {
         setProducts(products.filter((product) => product.id !== id));
+        setProductsChanged(true);
         setSnackbar({ open: true, message: "Product deleted successfully", severity: "success" });
         return true;
       } else {
@@ -100,7 +101,8 @@ export default function ProductContextProvider(props) {
       });
 
       if (response.ok) {
-        setProducts(products.map((p) => (p.id === product.id ? product : p)));
+        
+        setProductsChanged(true);setProducts(products.map((p) => (p.id === product.id ? product : p)));
         setSnackbar({ open: true, message: "Product updated successfully", severity: "success" });
         return true;
       } else {
@@ -123,7 +125,7 @@ export default function ProductContextProvider(props) {
       });
   
       await Promise.all(deletePromises);
-  
+      setProductsChanged(true);
       setSnackbar({open : true , message : "Products deleted successfully"});
     } catch (error) {
       setSnackbar({open : true , message : "An error occured while deleting"});
@@ -139,7 +141,9 @@ export default function ProductContextProvider(props) {
         updateProduct,
         addProduct,
         deleteProduct,
-        deleteMany
+        deleteMany,
+        productsChanged,
+        setProductsChanged,
       }}
     >
       {props.children}
