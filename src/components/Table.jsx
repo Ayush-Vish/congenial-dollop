@@ -38,32 +38,11 @@ export default function TableSortAndSelection() {
   // Handle selection of all rows
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = products.map((n) => n.name);
+      const newSelected = products.map((n) => n.title);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
-  };
-
-  // Handle click on a row
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   // Handle change of page
@@ -76,7 +55,27 @@ export default function TableSortAndSelection() {
     setRowsPerPage(parseInt(newValue.toString(), 10));
     setPage(0);
   };
+// Handle click event on a table row
+const handleClick = (event, name) => {
+  const selectedIndex = selected.indexOf(name);
+  let newSelected = [];
 
+  if (selectedIndex === -1) {
+    newSelected = newSelected.concat(selected, name);
+  } else if (selectedIndex === 0) {
+    newSelected = newSelected.concat(selected.slice(1));
+  } else if (selectedIndex === selected.length - 1) {
+    newSelected = newSelected.concat(selected.slice(0, -1));
+  } else if (selectedIndex > 0) {
+    newSelected = newSelected.concat(
+      selected.slice(0, selectedIndex),
+      selected.slice(selectedIndex + 1),
+    );
+  }
+
+  setSelected(newSelected);
+};
+  console.warn(selected)
   // Check if a row is selected
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -103,7 +102,7 @@ export default function TableSortAndSelection() {
       variant="outlined"
       sx={{ width: "100%", boxShadow: "sm", borderRadius: "sm" }}
     >
-      <EnhancedTableToolbar numSelected={selected.length} />
+      <EnhancedTableToolbar numSelected={selected.length} selected={selected}/>
       <Table
         aria-labelledby="tableTitle"
         hoverRow
@@ -186,7 +185,7 @@ export default function TableSortAndSelection() {
                   <td>{row.stock}</td>
                   <td>{row.discountPercentage}</td>
                   <td>{row.category}</td>
-                  <td className="flex">
+                  <td >
                     <Action product={row} />
                   </td>
                 </tr>

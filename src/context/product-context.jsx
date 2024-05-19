@@ -112,6 +112,23 @@ export default function ProductContextProvider(props) {
       return false;
     }
   }
+  async function deleteMany(productNames) {
+    try {
+      console.log(productNames)
+      const deletePromises = productNames.map(productName => {
+        console.log(productNames)
+        const product = products.find(p => p.title === productName);
+        console.log(product)
+        return deleteProduct(product.id);
+      });
+  
+      await Promise.all(deletePromises);
+  
+      setSnackbar({open : true , message : "Products deleted successfully"});
+    } catch (error) {
+      setSnackbar({open : true , message : "An error occured while deleting"});
+    }
+  }
 
   return (
     <ProductContext.Provider
@@ -122,6 +139,7 @@ export default function ProductContextProvider(props) {
         updateProduct,
         addProduct,
         deleteProduct,
+        deleteMany
       }}
     >
       {props.children}
