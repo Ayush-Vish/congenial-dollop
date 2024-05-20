@@ -9,7 +9,7 @@ ProductContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 const isDev= import.meta.env.DEV;
-const URL = isDev ? "http://localhost:3000/products" : "https://json-data-red.vercel.app/products";
+const URL = isDev ? "http://localhost:3000/products" : "https://json-data-qz3z.onrender.com/products";
 
 export default function ProductContextProvider(props) {
   const [products, setProducts] = useState([]);
