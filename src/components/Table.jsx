@@ -18,6 +18,7 @@ import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
 import { getComparator, labelDisplayedRows, stableSort } from "../utils/stableSort";
 import { useProductContext } from "../hooks/useProductContext";
+import { useNavigate } from "react-router";
 
 export default function TableSortAndSelection() {
   const { products, fetchProducts, productsChanged ,setProductsChanged} = useProductContext();
@@ -26,6 +27,7 @@ export default function TableSortAndSelection() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const navigate = useNavigate() ;
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   // Handle sorting of table columns
@@ -34,7 +36,10 @@ export default function TableSortAndSelection() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
+  function handleNavigate ( row ) {
+    navigate('/view' ,{state :row })
+    return ;
+  }
   // Handle selection of all rows
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -152,6 +157,7 @@ const handleClick = (event, name) => {
                   aria-checked={isItemSelected}
                   tabIndex={-1}
                   key={row.id}
+                  onClick={ () => handleNavigate(row)}
                   selected={isItemSelected}
                   style={
                     isItemSelected
