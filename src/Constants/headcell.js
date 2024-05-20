@@ -32,7 +32,7 @@ const  headCells = [
       {
 
         id: "Category",
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: "Category",
       },

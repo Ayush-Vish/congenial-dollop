@@ -45,6 +45,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -52,12 +53,14 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             required
             name="stock"
             label="Stock"
+            type="number"
             value={product.stock}
             onChange={handleChange}
             fullWidth
             margin="normal"
           />
           <TextField
+          
             required
             name="thumbnail"
             label="Thumbnail"
@@ -72,6 +75,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             required
             name="price"
             label="Price"
+            type="number"
             value={product.price}
             onChange={handleChange}
             fullWidth
@@ -81,6 +85,7 @@ export default function ProductForm({ product, handleChange, handleSubmit }) {
             required
             name="rating"
             label="Rating"
+            type="number"
             value={product.rating}
             onChange={handleChange}
             fullWidth

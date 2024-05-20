@@ -44,43 +44,43 @@ export default function EnhancedTableHead(props) {
                   : undefined
               }
             >
-              <Link
-                underline="none"
-                color="neutral"
-                textColor={active ? "primary.plainColor" : undefined}
-                component="button"
-                onClick={createSortHandler(headCell.id)}
-                fontWeight="lg"
-                startDecorator={
-                  headCell.numeric ? (
-                    <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
-                  ) : null
-                }
-                endDecorator={
-                  !headCell.numeric ? (
-                    <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
-                  ) : null
-                }
-                sx={{
-                  "& svg": {
-                    transition: "0.2s",
-                    transform:
-                      active && order === "desc"
-                        ? "rotate(0deg)"
-                        : "rotate(180deg)",
-                  },
-                  "&:hover": { "& svg": { opacity: 1 } },
-                }}
-              >
-                {headCell.label}
-                {active ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
-                  </Box>
-                ) : null}
-              </Link>
+             <Link
+  underline="none"
+  color="neutral"
+  textColor={active ? "primary.plainColor" : undefined}
+  component="button"
+  onClick={headCell.numeric ? createSortHandler(headCell.id) : undefined}
+  fontWeight="lg"
+  startDecorator={
+    headCell.numeric ? (
+      <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
+    ) : null
+  }
+  endDecorator={
+    !headCell.numeric ? (
+      <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
+    ) : null
+  }
+  sx={{
+    "& svg": {
+      transition: "0.2s",
+      transform:
+        active && order === "desc"
+          ? "rotate(0deg)"
+          : "rotate(180deg)",
+    },
+    "&:hover": { "& svg": { opacity: 1 } },
+  }}
+>
+  {headCell.label}
+  {active ? (
+    <Box component="span" sx={visuallyHidden}>
+      {order === "desc"
+        ? "sorted descending"
+        : "sorted ascending"}
+    </Box>
+  ) : null}
+</Link>
             </th>
           );
         })}
