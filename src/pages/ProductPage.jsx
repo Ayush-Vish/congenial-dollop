@@ -46,7 +46,9 @@ export default function ProductPage({ children }) {
     if (state) {
       updateProduct(product);
     } else {
-      addProduct({ ...product, id: products.length + 1 });
+      const maxId = Math.max(...products.map(product => product.id));
+
+      addProduct({ ...product, id: maxId + 1 });
     }
   };
 
